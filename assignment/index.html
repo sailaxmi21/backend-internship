@@ -1,6 +1,7 @@
 <!-- Template 2: Compound Interest Solution -->
+<h2 style="text-align:center; color:#333; margin-top: 20px;">Compound Interest Calculation</h2>
 
-<div class="template-container">
+<div class="template-container" id="ciContent">
 
   <!-- Step 1: Variables -->
   <div class="step-box">
@@ -14,7 +15,7 @@
 
   <!-- Step 2: Formula -->
   <div class="step-box">
-    <div class="formula-box">A = P × (1 + r/100)^n</div>
+    <div class="formula-box">A = P × (1 + r/100)<sup>n</sup></div>
   </div>
 
   <!-- Arrow to calculation -->
@@ -24,7 +25,7 @@
   <div class="step-box">
     <div class="fraction-box">r/100 = 5/100</div>
     <div class="number-box">1 + 5/100 = 1.05</div>
-    <div class="number-box">1.05^3 = 1.157625</div>
+    <div class="number-box">1.05³ = 1.157625</div>
     <div class="number-box">A = 10000 × 1.157625</div>
   </div>
 
@@ -33,53 +34,129 @@
 
   <!-- Step 4: Highlight Final Answer -->
   <div class="highlight-box">Total Amount (A) = ₹11,576.25</div>
-
 </div>
+
+<!-- Download Button -->
+<div style="text-align:center; margin-top:20px;">
+  <button class="download-btn" onclick="downloadPDF()">📄 Download as PDF</button>
+</div>
+
 <style>
-    .template-container {
+  .template-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: Arial, sans-serif;
-    margin: 20px;
+    margin: 20px auto;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
+
   .step-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px 0;
   }
-  .variable-box, .formula-box, .number-box, .fraction-box {
+
+  .variable-box,
+  .formula-box,
+  .number-box,
+  .fraction-box {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 10px 15px;
     margin: 5px 0;
     font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, background-color 0.2s ease;
   }
+
+  .variable-box:hover,
+  .formula-box:hover,
+  .number-box:hover,
+  .fraction-box:hover {
+    transform: scale(1.03);
+    background-color: #e8f0fe;
+  }
+
   .arrow {
     font-size: 24px;
     margin: 10px 0;
   }
+
   .highlight-box {
     background-color: #d4edda;
     border: 2px solid #28a745;
-    border-radius: 5px;
+    border-radius: 8px;
     padding: 15px 20px;
     font-size: 18px;
     font-weight: bold;
     color: #155724;
     margin-top: 15px;
+    text-align: center;
+    width: 100%;
   }
-    .fraction-box {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    .number-box {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        
 
+  .download-btn {
+    background-color: #7c3aed;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .download-btn:hover {
+    background-color: #6d28d9;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 480px) {
+    .variable-box,
+    .formula-box,
+    .number-box,
+    .highlight-box {
+      font-size: 14px;
+      padding: 8px 10px;
+    }
+    .template-container {
+      padding: 15px;
+    }
+  }
 </style>
-  
+
+<!-- jsPDF CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  async function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const element = document.getElementById("ciContent");
+    const html = element.innerText;
+
+    // Add title
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(18);
+    doc.text("Compound Interest Calculation", 20, 20);
+
+    // Add content
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+    doc.text(html, 20, 35);
+
+    doc.save("Compound_Interest_Calculation.pdf");
+  }
+</script>
